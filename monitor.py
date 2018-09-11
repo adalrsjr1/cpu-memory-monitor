@@ -78,12 +78,13 @@ if __name__ == '__main__':
     ax2.set_ylim(0,change_base(memory_base, psutil.virtual_memory().total)/1000)
     ax2.set_xlim(0,60)
 
-    ax2.set_ylabel('Memory ({}B)'.format('' if memory_base == 'b' or memory_base == 'B' else memory_base), color='blue')
+    ax2.set_ylabel('Memory ({}B)'.format('' \
+        if memory_base == 'b' or memory_base == 'B' else memory_base), color='blue')
 
     cpu_line, = ax.plot([],[], color="red")
     mem_line, = ax2.plot([],[], color="blue")
 
-    time_window = 450
+    time_window = 450 # magic number XD
 
     cpu_y_list = deque([-1]*time_window)
     mem_y_list = deque([-1]*time_window)
@@ -99,6 +100,6 @@ if __name__ == '__main__':
         process = psutil.Process(pid)
 
         anim = animation.FuncAnimation(fig, animate, init_func=init,
-            frames=200, interval=100, blit=True)
+            frames=10, interval=100, blit=True)
 
     plt.show()
