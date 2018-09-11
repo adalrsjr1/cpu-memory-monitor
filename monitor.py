@@ -42,7 +42,7 @@ def animate(i):
     cpu_y_list.pop()
     mem_y_list.pop()
 
-    cpu_percent = process.cpu_percent(.01)
+    cpu_percent = process.cpu_percent(.1)
     mem_percent = process.memory_percent()
     total_mem = psutil.virtual_memory().total
 
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     cpu_line, = ax.plot([],[], color="red")
     mem_line, = ax2.plot([],[], color="blue")
 
-    time_window = 450 # magic number XD
+    time_window = 270 # magic number XD
 
     cpu_y_list = deque([-1]*time_window)
     mem_y_list = deque([-1]*time_window)
@@ -100,6 +100,6 @@ if __name__ == '__main__':
         process = psutil.Process(pid)
 
         anim = animation.FuncAnimation(fig, animate, init_func=init,
-            frames=10, interval=100, blit=True)
+            frames=200, interval=100, blit=True)
 
     plt.show()
