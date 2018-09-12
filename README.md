@@ -1,3 +1,8 @@
+Realtime CPU and memory monitor to measure and visualise resources
+consumption in homemade projects. This is a simple project inspired by
+a question from stackoverflow:
+https://stackoverflow.com/questions/41133281/better-way-to-implement-matplotlib-animation-with-live-data-from-cpu
+
 ## How to run
 
 1. Make sure that you have Python and virtualenv installed
