@@ -1,6 +1,13 @@
+## How to run
+
+1. Make sure that you have Python and virtualenv installed
+2. Run virtualenv into project's folder and use `pip` to install `requirements.txt`
+3. `pip install -r requirements`
+4. Run the script as depicted below.
+
 ## Usage
 
-`python3 monitor.py <memory_notation> <pid_file>`
+`python monitor.py <memory_notation> <pid_file>`
 
 where memory_notation:
 
@@ -12,13 +19,14 @@ where memory_notation:
 
   otherwise = bytes
 
-## Self-saving PID in Java 8 or before
+## Example for self-saving PID in Java 8 or before
 
 ```
+// this snippet was tested only on Linux
 int savePid(String filepath) {
-		int pid = Integer.parseInt(new File("/proc/self").getCanonicalFile().getName())
-		File tmp = new File(filepath)
-		tmp.write(pid)
-		return pid
+  int pid = Integer.parseInt(new File("/proc/self").getCanonicalFile().getName());
+  File tmp = new File(filepath);
+  tmp.write(pid);
+  return pid;
 }
 ```
