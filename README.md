@@ -26,7 +26,7 @@ where memory_notation:
 
 ## Example for self-saving PID in Java 8 or before
 
-```
+```java
 // this snippet was tested only on Linux
 int savePid(String filepath) {
   int pid = Integer.parseInt(new File("/proc/self").getCanonicalFile().getName());
