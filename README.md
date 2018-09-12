@@ -1,6 +1,6 @@
-Realtime CPU and memory monitor to measure and visualise resources
+Real-time CPU and memory monitor to measure and visualize resources
 consumption in homemade projects. This is a simple project inspired by
-a question from stackoverflow:
+a question from StackOverflow:
 https://stackoverflow.com/questions/41133281/better-way-to-implement-matplotlib-animation-with-live-data-from-cpu
 
 ## How to run
