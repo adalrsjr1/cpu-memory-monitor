@@ -38,7 +38,7 @@ def change_base(notation, size_bytes):
         return toGiga(size_bytes)
     return size_bytes
 
-def animate(i):
+def animate(i, axisX, axisY,fig):
     cpu_y_list.pop()
     mem_y_list.pop()
 
@@ -47,6 +47,12 @@ def animate(i):
     total_mem = psutil.virtual_memory().total
     #mem_used = change_base(memory_base, total_mem) * mem_percent / 100
     mem_used = change_base(memory_base, process.memory_info().rss)
+
+    # uptade y-axis in real time
+    ylim = axisY.get_ylim()
+    if mem_used > ylim[1]:
+        axisY.set_ylim(0,mem_used*2)
+        axisY.set_yticks(np.linspace(0,mem_used*2,10))
 
     cpu_y_list.appendleft(cpu_percent)
     mem_y_list.appendleft(mem_used)
@@ -63,7 +69,6 @@ if __name__ == '__main__':
         print("\nusage: python monitor.py <memory_notation B K M G> <pid_file>\n")
         sys.exit(1)
 
-    max_mem = 0
     memory_base = sys.argv[1]
     pid_filename = sys.argv[2]
 
@@ -76,7 +81,7 @@ if __name__ == '__main__':
     ax.set_ylabel('CPU (%)', color='red')
 
     ax2 = ax.twinx() # copy of plot area
-    ax2.set_ylim(0,100)
+    ax2.set_ylim(0,change_base(memory_base, psutil.virtual_memory().total)/1000)
     ax2.set_xlim(0,60)
 
     ax2.set_ylabel('Memory ({}B)'.format('' \
@@ -90,6 +95,8 @@ if __name__ == '__main__':
     cpu_y_list = deque([-1]*time_window)
     mem_y_list = deque([-1]*time_window)
 
+    max_mem = 0
+
     x_list = deque(np.linspace(0,60,num=time_window)) # dynamic x-axis
     process = None
 
@@ -102,6 +109,6 @@ if __name__ == '__main__':
         process = psutil.Process(pid)
 
         anim = animation.FuncAnimation(fig, animate, init_func=init,
-            frames=200, interval=100, blit=True)
+            frames=200, interval=100, fargs=(ax,ax2,fig))
 
     plt.show()
